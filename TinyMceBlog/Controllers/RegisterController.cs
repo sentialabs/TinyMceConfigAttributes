@@ -10,6 +10,7 @@ using System.Web.Profile;
 using EPiServer.Security;
 using EPiServer.DataAbstraction;
 using EPiServer.Personalization;
+using TinyMceBlog.Models.Register;
 
 namespace TinyMceBlog.Controllers
 {
@@ -23,7 +24,9 @@ namespace TinyMceBlog.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            // admin - @Welcome123
+            var model = new RegisterViewModel();
+            return View(model);
         }
 
         //

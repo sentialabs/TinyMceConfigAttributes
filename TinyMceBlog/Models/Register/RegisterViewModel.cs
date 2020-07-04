@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace TinyMceBlog.Models
+namespace TinyMceBlog.Models.Register
 {
     public class RegisterViewModel
     {

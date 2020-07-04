@@ -2,6 +2,7 @@ using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
 using System.ComponentModel.DataAnnotations;
+using TinyMceBlog.Business.Attributes;
 
 namespace TinyMceBlog.Models.Pages
 {
@@ -16,6 +17,7 @@ namespace TinyMceBlog.Models.Pages
             GroupName = SystemTabNames.Content,
             Order = 310)]
         [CultureSpecific]
+        [SimpleTinyMce]
         public virtual XhtmlString MainBody { get; set; }
 
         [Display(
