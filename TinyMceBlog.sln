@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyMceBlog", "TinyMceBlog\TinyMceBlog.csproj", "{158A3193-8652-46BE-9B49-C0E9E266E307}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{158A3193-8652-46BE-9B49-C0E9E266E307}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{158A3193-8652-46BE-9B49-C0E9E266E307}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{158A3193-8652-46BE-9B49-C0E9E266E307}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{158A3193-8652-46BE-9B49-C0E9E266E307}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3A888661-7B53-4B8E-B6C0-54B5889EE0E5}
+	EndGlobalSection
+EndGlobal
