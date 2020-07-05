@@ -95,10 +95,11 @@ namespace TinyMceBlog.Business.Initialization
 
                         foreach (var propertyInfo in properties)
                         {
-                            var entityType = propertyInfo.DeclaringType;
+                            var entityType = propertyInfo.ReflectedType;
                             var parameter = Expression.Parameter(entityType, "entity");
                             var property = Expression.Property(parameter, propertyInfo);
-                            var funcType = typeof(Func<,>).MakeGenericType(entityType, propertyInfo.PropertyType);
+                            //var funcType = typeof(Func<,>).MakeGenericType(entityType, propertyInfo.PropertyType);
+                            var funcType = typeof(Func<,>).MakeGenericType(entityType, typeof(Object));
                             var lambda = Expression.Lambda(funcType, property, parameter);
 
                             //structureConfiguration.GetType()
