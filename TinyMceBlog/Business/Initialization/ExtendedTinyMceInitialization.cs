@@ -47,6 +47,9 @@ namespace TinyMceBlog.Business.Initialization
                     .RemovePlugin("epi-image-editor")
                     .Height(125);
 
+                // For one property of one page type:
+                // config.For<StandardPage>(x => x.MainBody, simpleConfig);
+
                 TinyMceCustomConfigRegistration.RegisterCustomTinyMceSettingsAttribute(config, typeof(SimpleTinyMceAttribute), simpleConfig );
 
             });

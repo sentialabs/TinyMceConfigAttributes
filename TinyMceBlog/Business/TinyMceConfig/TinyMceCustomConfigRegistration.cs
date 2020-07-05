@@ -24,39 +24,46 @@ namespace TinyMceBlog.Business.TinyMceConfig
 
             foreach (var contentType in listOfTypes)
             {
+                // Get the properties decorated with the attribute used for designating the custom TinyMceSettings.
                 var properties = contentType
                     .GetProperties().Where(x => x.CustomAttributes.Any(att => att.AttributeType == attributeType)).ToList();
 
                 if (!properties.Any()) continue;
 
-                Console.WriteLine(contentType.Name + " " + properties.FirstOrDefault()?.Name);
-
+                // Get MethodInfo for the extension method usually used to designate
+                // custom TinyMceSettings for an XhtmlProperty, viz.
+                // config.For<StandardPage>(x => x.MainBody, customTinyMceSettings);
                 var theMethod = typeof(TinyMceConfiguration).GetMethod("For");
 
                 if (theMethod == null) continue;
 
+                // Make the method generic.
                 var theGenericMethod = theMethod.MakeGenericMethod(contentType);
 
                 foreach (var propertyInfo in properties)
                 {
+                    // Continue if the attribute is inadvertently applied to a
+                    // property which is not an XhtmlString.
+                    if (propertyInfo.PropertyType.Name != "XhtmlString") continue;
+                    
                     var entityType = propertyInfo.ReflectedType;
-                    if (entityType != null)
+
+                    if (entityType == null) continue;
+
+                    var parameter = Expression.Parameter(entityType, "entity");
+                    var property = Expression.Property(parameter, propertyInfo);
+                    var funcType = typeof(Func<,>).MakeGenericType(entityType, typeof(object));
+                    var lambda = Expression.Lambda(funcType, property, parameter);
+
+                    var parameters = new object[] { lambda, customTinyMceSettings };
+
+                    try
                     {
-                        var parameter = Expression.Parameter(entityType, "entity");
-                        var property = Expression.Property(parameter, propertyInfo);
-                        var funcType = typeof(Func<,>).MakeGenericType(entityType, typeof(object));
-                        var lambda = Expression.Lambda(funcType, property, parameter);
-
-                        var parameters = new object[] { lambda, customTinyMceSettings };
-
-                        try
-                        {
-                            theGenericMethod.Invoke(config, parameters);
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                        }
+                        theGenericMethod.Invoke(config, parameters);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
                     }
                 }
             }
