@@ -50,7 +50,9 @@ namespace TinyMceBlog.Business.Initialization
                 // For one property of one page type:
                 // config.For<StandardPage>(x => x.MainBody, simpleConfig);
 
-                TinyMceCustomConfigRegistration.RegisterCustomTinyMceSettingsAttribute(config, typeof(SimpleTinyMceAttribute), simpleConfig );
+                // The second parameter, the attribute type, needs to be the full name of the attribute class,
+                // including the string "Attribute" at the end.
+                TinyMceCustomConfigRegistration.RegisterCustomTinyMceSettingsAttribute(config, typeof(SimpleTinyMceConfigAttribute), simpleConfig );
 
             });
         }

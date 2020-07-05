@@ -17,13 +17,13 @@ namespace TinyMceBlog.Models.Pages
             GroupName = SystemTabNames.Content,
             Order = 310)]
         [CultureSpecific]
-        [SimpleTinyMce]
+        [SimpleTinyMceConfig]
         public virtual XhtmlString MainBody { get; set; }
 
         [Display(
             GroupName = SystemTabNames.Content,
             Order = 320)]
-        [SimpleTinyMce]
+        [SimpleTinyMceConfig]
         public virtual ContentArea MainContentArea { get; set; }
     }
 }

@@ -3,7 +3,7 @@
 namespace TinyMceBlog.Business.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class SimpleTinyMceAttribute : Attribute
+    public class SimpleTinyMceConfigAttribute : Attribute
     {
         
     }
