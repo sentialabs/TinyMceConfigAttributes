@@ -23,6 +23,7 @@ namespace TinyMceBlog.Models.Pages
         [Display(
             GroupName = SystemTabNames.Content,
             Order = 320)]
+        [SimpleTinyMce]
         public virtual ContentArea MainContentArea { get; set; }
     }
 }
