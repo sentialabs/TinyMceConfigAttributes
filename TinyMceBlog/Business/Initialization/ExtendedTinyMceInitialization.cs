@@ -30,8 +30,8 @@ namespace TinyMceBlog.Business.Initialization
 
                 // This will clone the default settings object and extend it by
                 // limiting the block formats for the MainBody property of an ArticlePage.
-                config.For<ArticlePage>(t => t.MainBody)
-                    .BlockFormats("Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3");
+                //config.For<ArticlePage>(t => t.MainBody)
+                //    .BlockFormats("Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3");
 
                 // Passing a second argument to For<> will clone the given settings object
                 // instead of the default one and extend it with some basic toolbar commands.
@@ -47,12 +47,19 @@ namespace TinyMceBlog.Business.Initialization
                     .RemovePlugin("epi-image-editor")
                     .Height(125);
 
+                var verySimpleConfig = config.Default().Clone()
+                    .DisableMenubar()
+                    .DisableImageTools()
+                    .Height(150);
+
                 // For one property of one page type:
                 // config.For<StandardPage>(x => x.MainBody, simpleConfig);
 
                 // The second parameter, the attribute type, needs to be the full name of the attribute class,
                 // including the string "Attribute" at the end.
-                TinyMceCustomConfigRegistration.RegisterCustomTinyMceSettingsAttribute(config, typeof(SimpleTinyMceConfigAttribute), simpleConfig );
+                TinyMceCustomSettingsAttributeRegistration.RegisterCustomTinyMceSettingsAttribute(config, typeof(SimpleTinyMceConfigAttribute), simpleConfig );
+
+                TinyMceCustomSettingsAttributeRegistration.RegisterCustomTinyMceSettingsAttribute(config, typeof(VerySimpleTinyMceConfigAttribute), verySimpleConfig);
 
             });
         }

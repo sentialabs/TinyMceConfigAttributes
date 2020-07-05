@@ -7,7 +7,7 @@ using EPiServer.Core;
 
 namespace TinyMceBlog.Business.TinyMceConfig
 {
-    public static class TinyMceCustomConfigRegistration
+    public static class TinyMceCustomSettingsAttributeRegistration
     {
         /// <summary>
         /// Sets custom TinyMceSettings on all XhtmlString properties

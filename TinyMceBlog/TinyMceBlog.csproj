@@ -267,6 +267,7 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ItemGroup>
     <Compile Include="Business\AdministratorRegistrationPage.cs" />
+    <Compile Include="Business\Attributes\VerySimpleTinyMceConfigAttribute.cs" />
     <Compile Include="Business\Attributes\SimpleTinyMceConfigAttribute.cs" />
     <Compile Include="Business\Channels\DisplayResolutionBase.cs" />
     <Compile Include="Business\Channels\DisplayResolutions.cs" />
@@ -295,7 +296,7 @@
     <Compile Include="Business\Rendering\SiteViewEngine.cs" />
     <Compile Include="Business\Rendering\TemplateCoordinator.cs" />
     <Compile Include="Business\ServiceLocatorDependencyResolver.cs" />
-    <Compile Include="Business\TinyMceConfig\TinyMceCustomConfigRegistration.cs" />
+    <Compile Include="Business\TinyMceConfig\TinyMceCustomSettingsAttributeRegistration.cs" />
     <Compile Include="Business\UIDescriptors\ContainerPageUIDescriptor.cs" />
     <Compile Include="Controllers\ContactBlockController.cs" />
     <Compile Include="Controllers\DefaultPageController.cs" />

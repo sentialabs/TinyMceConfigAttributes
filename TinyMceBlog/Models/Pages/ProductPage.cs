@@ -4,6 +4,7 @@ using TinyMceBlog.Models.Blocks;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
+using TinyMceBlog.Business.Attributes;
 using TinyMceBlog.Models.Properties;
 
 namespace TinyMceBlog.Models.Pages
@@ -32,5 +33,8 @@ namespace TinyMceBlog.Models.Pages
         [CultureSpecific]
         [AllowedTypes(new[] { typeof(IContentData) },new[] { typeof(JumbotronBlock) })]
         public virtual ContentArea RelatedContentArea { get; set; }
+
+        [VerySimpleTinyMceConfig]
+        public override XhtmlString MainBody { get; set; }
     }
 }
