@@ -46,13 +46,9 @@ namespace TinyMceBlog.Business.TinyMceConfig
                     // property which is not an XhtmlString.
                     if (propertyInfo.PropertyType.Name != "XhtmlString") continue;
                     
-                    var entityType = propertyInfo.ReflectedType;
-
-                    if (entityType == null) continue;
-
-                    var parameter = Expression.Parameter(entityType, "entity");
+                    var parameter = Expression.Parameter(contentType, "entity");
                     var property = Expression.Property(parameter, propertyInfo);
-                    var funcType = typeof(Func<,>).MakeGenericType(entityType, typeof(object));
+                    var funcType = typeof(Func<,>).MakeGenericType(contentType, typeof(object));
                     var lambda = Expression.Lambda(funcType, property, parameter);
 
                     var parameters = new object[] { lambda, customTinyMceSettings };
