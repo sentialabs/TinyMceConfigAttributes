@@ -86,28 +86,27 @@ namespace TinyMceBlog.Business.Initialization
                     var properties = contentType
                         .GetProperties().Where(x => x.CustomAttributes.Any(att => att.AttributeType == typeof(SimpleTinyMceAttribute))).ToList();
 
-                    if (properties.Any())
+                    if (!properties.Any()) continue;
+
+                    Console.WriteLine(contentType.Name + " " + properties.FirstOrDefault()?.Name);
+
+                    var theMethod = typeof(TinyMceConfiguration).GetMethod("For");
+
+                    if (theMethod == null) continue;
+
+                    var theGenericMethod = theMethod.MakeGenericMethod(contentType);
+
+                    foreach (var propertyInfo in properties)
                     {
-                        Console.WriteLine(contentType.Name + " " + properties.FirstOrDefault()?.Name);
-
-                        var theMethod = typeof(TinyMceConfiguration).GetMethod("For");
-                        var theGenericMethod = theMethod.MakeGenericMethod(contentType);
-
-                        foreach (var propertyInfo in properties)
+                        var entityType = propertyInfo.ReflectedType;
+                        if (entityType != null)
                         {
-                            var entityType = propertyInfo.ReflectedType;
                             var parameter = Expression.Parameter(entityType, "entity");
                             var property = Expression.Property(parameter, propertyInfo);
-                            //var funcType = typeof(Func<,>).MakeGenericType(entityType, propertyInfo.PropertyType);
-                            var funcType = typeof(Func<,>).MakeGenericType(entityType, typeof(Object));
+                            var funcType = typeof(Func<,>).MakeGenericType(entityType, typeof(object));
                             var lambda = Expression.Lambda(funcType, property, parameter);
 
-                            //structureConfiguration.GetType()
-                            //    .GetMethod("Ignore")
-                            //    .MakeGenericMethod(propertyInfo.PropertyType)
-                            //    .Invoke(structureConfiguration, new[] { lambda });
-
-                            object[] parameters = new object[] { lambda, simpleConfig };
+                            var parameters = new object[] { lambda, simpleConfig };
 
                             try
                             {
@@ -118,11 +117,10 @@ namespace TinyMceBlog.Business.Initialization
                                 Console.WriteLine(e);
                                 
                             }
-
                         }
-
-                        //config.For<StandardPage>(x => x.MainBody, simpleConfig);
                     }
+
+                    //config.For<StandardPage>(x => x.MainBody, simpleConfig);
                 }
 
 

@@ -20,6 +20,13 @@ namespace TinyMceBlog.Models.Pages
         ExcludeOn = new[] { typeof(ContainerPage), typeof(ProductPage), typeof(StandardPage), typeof(ISearchPage), typeof(LandingPage) })] // ...and underneath those we can't create additional start pages
     public class StartPage : SitePageData
     {
+
+        [Display(
+            GroupName = SystemTabNames.Content,
+            Order = 310)]
+        [CultureSpecific]
+        public virtual XhtmlString MainBody { get; set; }
+
         [Display(
             GroupName = SystemTabNames.Content,
             Order = 320)]
