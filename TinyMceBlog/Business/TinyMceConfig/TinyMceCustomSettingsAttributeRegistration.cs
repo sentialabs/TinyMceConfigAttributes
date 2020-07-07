@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Castle.MicroKernel.ModelBuilder.Descriptors;
 using EPiServer.Cms.TinyMce.Core;
 using EPiServer.Core;
 using TinyMceBlog.Business.Attributes;
@@ -11,19 +10,31 @@ namespace TinyMceBlog.Business.TinyMceConfig
 {
     public static class TinyMceCustomSettingsAttributeRegistration<T> where T : BaseTinyMceCustomSettingsAttribute
     {
+        // ReSharper disable once StaticMemberInGenericType
+        private static readonly IEnumerable<Type> _listOfEpiserverContentDataTypes;
+
+        static TinyMceCustomSettingsAttributeRegistration()
+        {
+            _listOfEpiserverContentDataTypes = GetListOfEpiserverContentTypes();
+        }
+
         /// <summary>
         /// Sets custom TinyMceSettings on all XhtmlString properties
         /// decorated with a specific attribute.
         /// </summary>
         /// <param name="config"></param>
-        /// <param name="attributeType">The type of the attribute used to decorate the property</param>
         /// <param name="customTinyMceSettings">The custom TinyMceSettings</param>
         public static void RegisterCustomTinyMceSettingsAttribute(TinyMceConfiguration config,
             TinyMceSettings customTinyMceSettings)
         {
-            var listOfTypes = GetListOfEpiserverContentTypes();
+            // Get MethodInfo for the extension method usually used to designate
+            // custom TinyMceSettings for an XhtmlProperty, viz.
+            // config.For<StandardPage>(x => x.MainBody, customTinyMceSettings);
+            var theForMethod = typeof(TinyMceConfiguration).GetMethod("For");
 
-            foreach (var contentType in listOfTypes)
+            if (theForMethod == null) return;
+
+            foreach (var contentType in _listOfEpiserverContentDataTypes)
             {
                 // Get the properties decorated with the attribute used for designating the custom TinyMceSettings.
                 var properties = contentType
@@ -31,15 +42,8 @@ namespace TinyMceBlog.Business.TinyMceConfig
 
                 if (!properties.Any()) continue;
 
-                // Get MethodInfo for the extension method usually used to designate
-                // custom TinyMceSettings for an XhtmlProperty, viz.
-                // config.For<StandardPage>(x => x.MainBody, customTinyMceSettings);
-                var theMethod = typeof(TinyMceConfiguration).GetMethod("For");
-
-                if (theMethod == null) continue;
-
-                // Make the method generic.
-                var theGenericMethod = theMethod.MakeGenericMethod(contentType);
+                // Make the For method generic.
+                var theGenericMethod = theForMethod.MakeGenericMethod(contentType);
 
                 foreach (var propertyInfo in properties)
                 {
