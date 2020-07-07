@@ -47,19 +47,15 @@ namespace TinyMceBlog.Business.Initialization
                     .RemovePlugin("epi-image-editor")
                     .Height(125);
 
-                var verySimpleConfig = config.Default().Clone()
-                    .DisableMenubar()
-                    .DisableImageTools()
-                    .Height(150);
+                var verySimpleConfig = config.Empty().Clone()
+                    .Height(400);
 
                 // For one property of one page type:
                 // config.For<StandardPage>(x => x.MainBody, simpleConfig);
 
-                // The second parameter, the attribute type, needs to be the full name of the attribute class,
-                // including the string "Attribute" at the end.
-                TinyMceCustomSettingsAttributeRegistration.RegisterCustomTinyMceSettingsAttribute(config, typeof(SimpleTinyMceConfigAttribute), simpleConfig );
+                TinyMceCustomSettingsAttributeRegistration<SimpleTinyMceConfigAttribute>.RegisterCustomTinyMceSettingsAttribute(config, simpleConfig );
 
-                TinyMceCustomSettingsAttributeRegistration.RegisterCustomTinyMceSettingsAttribute(config, typeof(VerySimpleTinyMceConfigAttribute), verySimpleConfig);
+                TinyMceCustomSettingsAttributeRegistration<VerySimpleTinyMceConfigAttribute>.RegisterCustomTinyMceSettingsAttribute(config, verySimpleConfig);
 
             });
         }

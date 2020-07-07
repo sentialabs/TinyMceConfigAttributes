@@ -296,6 +296,7 @@
     <Compile Include="Business\Rendering\SiteViewEngine.cs" />
     <Compile Include="Business\Rendering\TemplateCoordinator.cs" />
     <Compile Include="Business\ServiceLocatorDependencyResolver.cs" />
+    <Compile Include="Business\Attributes\BaseTinyMceCustomSettingsAttribute.cs" />
     <Compile Include="Business\TinyMceConfig\TinyMceCustomSettingsAttributeRegistration.cs" />
     <Compile Include="Business\UIDescriptors\ContainerPageUIDescriptor.cs" />
     <Compile Include="Controllers\ContactBlockController.cs" />

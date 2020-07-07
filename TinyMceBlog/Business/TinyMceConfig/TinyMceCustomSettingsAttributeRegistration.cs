@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Castle.MicroKernel.ModelBuilder.Descriptors;
 using EPiServer.Cms.TinyMce.Core;
 using EPiServer.Core;
+using TinyMceBlog.Business.Attributes;
 
 namespace TinyMceBlog.Business.TinyMceConfig
 {
-    public static class TinyMceCustomSettingsAttributeRegistration
+    public static class TinyMceCustomSettingsAttributeRegistration<T> where T : BaseTinyMceCustomSettingsAttribute
     {
         /// <summary>
         /// Sets custom TinyMceSettings on all XhtmlString properties
@@ -16,8 +18,7 @@ namespace TinyMceBlog.Business.TinyMceConfig
         /// <param name="config"></param>
         /// <param name="attributeType">The type of the attribute used to decorate the property</param>
         /// <param name="customTinyMceSettings">The custom TinyMceSettings</param>
-        public static void RegisterCustomTinyMceSettingsAttribute(TinyMceConfiguration config, 
-            Type attributeType, 
+        public static void RegisterCustomTinyMceSettingsAttribute(TinyMceConfiguration config,
             TinyMceSettings customTinyMceSettings)
         {
             var listOfTypes = GetListOfEpiserverContentTypes();
@@ -26,7 +27,7 @@ namespace TinyMceBlog.Business.TinyMceConfig
             {
                 // Get the properties decorated with the attribute used for designating the custom TinyMceSettings.
                 var properties = contentType
-                    .GetProperties().Where(x => x.CustomAttributes.Any(att => att.AttributeType == attributeType)).ToList();
+                    .GetProperties().Where(x => x.CustomAttributes.Any(att => att.AttributeType == typeof(T))).ToList();
 
                 if (!properties.Any()) continue;
 

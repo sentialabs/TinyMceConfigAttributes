@@ -2,9 +2,7 @@
 
 namespace TinyMceBlog.Business.Attributes
 {
-    [AttributeUsage(AttributeTargets.Property)]
-    public class SimpleTinyMceConfigAttribute : Attribute
+    public class SimpleTinyMceConfigAttribute : BaseTinyMceCustomSettingsAttribute
     {
-        
     }
 }
