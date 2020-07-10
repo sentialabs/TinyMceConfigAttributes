@@ -74,7 +74,8 @@ The actual work is done in the attribute registration code. In this case attribu
 
 The registration call looks like this:
 ```csharp
-TinyMceCustomSettingsAttributeRegistration<SimpleTinyMceConfigAttribute>.RegisterCustomTinyMceSettingsAttribute(config, simpleConfig );
+TinyMceCustomSettingsAttributeRegistration<SimpleTinyMceConfigAttribute>
+                .RegisterCustomTinyMceSettingsAttribute(config, simpleConfig );
 ```
 
 In this call three elements are passed:
@@ -125,7 +126,8 @@ theGenericMethod.Invoke(config, parameters);
 The signature of the class in which all this happens is this:
 
 ```csharp
-public static class TinyMceCustomSettingsAttributeRegistration<T> where T : BaseTinyMceCustomSettingsAttribute
+public static class TinyMceCustomSettingsAttributeRegistration<T> 
+                    where T : BaseTinyMceCustomSettingsAttribute
 ```
 
 By requiring `T` to be of type `BaseTinyMceCustomSettingsAttribute` we prevent the attribute registration method to be called with types which are not meant to be attributes for TinyMCE custom settings.
@@ -134,7 +136,8 @@ The whole class looks like this:
 
 
 ```csharp
-public static class TinyMceCustomSettingsAttributeRegistration<T> where T : BaseTinyMceCustomSettingsAttribute
+public static class TinyMceCustomSettingsAttributeRegistration<T> 
+                    where T : BaseTinyMceCustomSettingsAttribute
 {
     // ReSharper disable once StaticMemberInGenericType
     private static readonly IEnumerable<Type> _listOfEpiserverContentDataTypes;
@@ -162,9 +165,11 @@ public static class TinyMceCustomSettingsAttributeRegistration<T> where T : Base
 
         foreach (var contentType in _listOfEpiserverContentDataTypes)
         {
-            // Get the properties decorated with the attribute used for designating the custom TinyMceSettings.
+            // Get the properties decorated with the attribute 
+            // used for designating the custom TinyMceSettings.
             var properties = contentType
-                .GetProperties().Where(x => x.CustomAttributes.Any(att => att.AttributeType == typeof(T))).ToList();
+                .GetProperties().Where(x => x.CustomAttributes
+                                .Any(att => att.AttributeType == typeof(T))).ToList();
 
             if (!properties.Any()) continue;
 
