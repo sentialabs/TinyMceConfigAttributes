@@ -44,7 +44,8 @@ we won't go into that.
 
 The registration of the attribute is going to look like this, and will be explained below:
 ```csharp
-TinyMceCustomSettingsAttributeRegistration<SimpleTinyMceConfigAttribute>.RegisterCustomTinyMceSettingsAttribute(config, simpleConfig );
+TinyMceCustomSettingsAttributeRegistration<SimpleTinyMceConfigAttribute>
+                            .RegisterCustomTinyMceSettingsAttribute(config, simpleConfig );
 ```
 
 ## Defining an attribute
