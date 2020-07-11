@@ -13,7 +13,7 @@ config.For<StandardPage>(x => x.MainBody, simpleConfig);
 
 where `config` is the TinyMceConfiguration object, and `simpleConfig` is a custom TinyMCE configuration previously defined. 
 
-I have always found it awkward to have to set the custom configuration for properties in the initializaton module. Each page property to which you want to apply the custom configuration needs a separate line in the configuration module. Wouldn't it be nice to be able to apply the configuration in the page model class when definining the page properties, with an attribute, like so:
+I have always found it awkward to have to set the custom configuration for properties in the initializaton module. Each page property to which you want to apply the custom configuration needs a separate line in the initialization module. Wouldn't it be nice to be able to apply the configuration in the page model class when definining the page properties, with an attribute, like so:
 
 ```csharp
 [SimpleTinyMceConfig]
