@@ -1,5 +1,5 @@
 ## Wouldn't it be nice
-# Applying a custom TinyMCE configuration to a page property with an attribute
+# Applying a custom TinyMCE configuration to an Episerver page property with an attribute
 
 Episerver uses the TinyMCE as the editor for rich text input. Since 2018 the Episerver TinyMCE package has been upgraded to version 2. The current version, 2.10.1 at the time of writing, corresponds with TinyMce 4.8.5. The Episerver TinyMCE package comes with some default configuration, which can be changed through an Episerver initialization module. In the Alloy sample project this initialization module is called ExtendedTinyMceInitialization, and can be found in the Business/Initialization folder.
 
@@ -21,7 +21,7 @@ public virtual XhtmlString MainBody { get; set; }
 ```
 
 The code necessary to bring this about is described in this blog. The code can also be found in an Alloy sample project on GitHub, at:
-https://github.com/johnligt/TinyMceBlog
+https://github.com/sentialabs/TinyMceConfigAttributes
 
 
 In the new setup the only elements in the initialization module are:
