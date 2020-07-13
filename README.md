@@ -3,7 +3,7 @@
 
 Episerver uses the TinyMCE as the editor for rich text input. Since 2018 the Episerver TinyMCE package has been upgraded to version 2. The current version, 2.10.1 at the time of writing, corresponds with TinyMce 4.8.5. The Episerver TinyMCE package comes with some default configuration, which can be changed through an Episerver initialization module. In the Alloy sample project this initialization module is called ExtendedTinyMceInitialization, and can be found in the Business/Initialization folder.
 
-In this initialization module it is possible to define customized TinyMCE configurations for specific properties on specific page types. For instance, you might want to remove the button to an insert an image for some rich text fields, or you might want to add additional formats to the formatting list.
+In this initialization module it is possible to define customized TinyMCE configurations for specific properties on specific page types. For instance, you might want to remove the button to insert an image for some rich text fields, or you might want to add additional formats to the formatting list.
 
 To apply a custom configuration the following syntax is used:
 
