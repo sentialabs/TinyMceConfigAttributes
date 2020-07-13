@@ -77,11 +77,11 @@ namespace TinyMceBlog.Business.TinyMceConfig
         /// <returns>A list of types</returns>
         private static IEnumerable<Type> GetListOfEpiserverContentTypes()
         {
-            var listOfTypes = (
+            var listOfTypes =
                 from domainAssembly in AppDomain.CurrentDomain.GetAssemblies()
                 from assemblyType in domainAssembly.GetTypes()
                 where typeof(ContentData).IsAssignableFrom(assemblyType)
-                select assemblyType).ToArray();
+                select assemblyType;
 
             return listOfTypes;
         }
