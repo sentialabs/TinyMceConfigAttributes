@@ -39,7 +39,7 @@ var simpleConfig = config.Default().Clone()
 .Height(125);
 ```
 
-The Episerver documentation on customizing the TinyMCE editor can be found [here](https://world.episerver.com/documentation/developer-guides/CMS/add-ons/customizing-the-tinymce-editor-v2/), 
+The Episerver documentation on customizing the TinyMCE editor can be found <a href="https://world.episerver.com/documentation/developer-guides/CMS/add-ons/customizing-the-tinymce-editor-v2/" target="_blank">here</a>, 
 we won't go into that.
 
 The registration of the attribute is going to look like this, and will be explained below:
