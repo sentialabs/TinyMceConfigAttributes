@@ -39,7 +39,8 @@ var simpleConfig = config.Default().Clone()
 .Height(125);
 ```
 
-The Episerver documentation on customizing the TinyMCE editor can be found <a href="https://world.episerver.com/documentation/developer-guides/CMS/add-ons/customizing-the-tinymce-editor-v2/" target="_blank">here</a>, 
+The Episerver documentation on customizing the TinyMCE editor can be found 
+<a href="https://world.episerver.com/documentation/developer-guides/CMS/add-ons/customizing-the-tinymce-editor-v2/" target="_blank">here</a>, 
 we won't go into that.
 
 The registration of the attribute is going to look like this, and will be explained below:
@@ -80,7 +81,7 @@ TinyMceCustomSettingsAttributeRegistration<SimpleTinyMceConfigAttribute>
 ```
 
 In this call three elements are passed:
-1. The attribute type `<SimpleTinyMceConfigAttribute>`.
+1. The attribute type `SimpleTinyMceConfigAttribute`.
 2. The TinyMceConfiguration object, which holds all configurations.
 3. The custom TinyMCE setting object, which will be applied to all properties decorated with the passed attribute type.
 
@@ -219,9 +220,19 @@ public static class TinyMceCustomSettingsAttributeRegistration<T>
     }
 }
 
-````
+```
 
+## Summary
 
+You can use attributes on page and block properties to assign custom TinyMce configurations to `XhtmlString` properties in your Episerver project.
 
+To bring this about you need to do the following:
 
+* Add the abstract class `BaseTinyMceCustomSettingsAttribute` to your project.
+* Add classes inheriting from this class for each custom TinyMce configuration which you want to use.
+* Add your custom TinyMce configurations in the TinyMce initialization module (which is called `ExtendedTinyMceInitialization` in the Alloy sample project).
+* Add the static class `TinyMceCustomSettingsAttributeRegistration` to your project.
+* Register each of your custom TinyMce configurations by calling the static method `RegisterCustomTinyMceSettingsAttribute` for each of your custom TinyMce configurations in the TinyMce initialization module.
 
+An Alloy sample project with the complete code can be found on GitHub, at:
+https://github.com/sentialabs/TinyMceConfigAttributes
