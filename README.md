@@ -92,6 +92,8 @@ The basic steps which we need to go through are:
 3. Find the properties decorated with the attribute for each content type
 4. Call a generic version of the `For` extension method for each decorated property.
 
+This list of Episerver page and block types is acquired with the method `GetListOfEpiserverContentTypes`. Although the initial version of this method worked in the Alloy demo project, an error was thrown on `assembly.GetTypes()` when transferring the code to a real-world project. The introduction of the method `GetLoadableTypes(Assembly assembly)` solved this error.
+
 The original version of the extension method looks like this:
 
 ```csharp
@@ -210,13 +212,34 @@ public static class TinyMceCustomSettingsAttributeRegistration<T>
     /// <returns>A list of types</returns>
     private static IEnumerable<Type> GetListOfEpiserverContentTypes()
     {
-        var listOfTypes = (
-            from domainAssembly in AppDomain.CurrentDomain.GetAssemblies()
-            from assemblyType in domainAssembly.GetTypes()
-            where typeof(ContentData).IsAssignableFrom(assemblyType)
-            select assemblyType).ToArray();
+        try
+        {
+            var listOfTypes =
+                (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies()
+                    from assemblyType in GetLoadableTypes(domainAssembly)
+                    where typeof(ContentData).IsAssignableFrom(assemblyType)
+                    select assemblyType).ToList();
 
-        return listOfTypes;
+            return listOfTypes;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    private static IEnumerable<Type> GetLoadableTypes(Assembly assembly)
+    {
+        if (assembly == null) throw new ArgumentNullException(nameof(assembly));
+        try
+        {
+            return assembly.GetTypes();
+        }
+        catch (ReflectionTypeLoadException e)
+        {
+            return e.Types.Where(t => t != null);
+        }
     }
 }
 
